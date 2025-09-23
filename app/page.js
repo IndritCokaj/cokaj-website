@@ -1,13 +1,42 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Logo from "../public/logo.png"; // your transparent logo
 
 export default function Home() {
+  const [status, setStatus] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus("⏳ Wird gesendet...");
+
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      setStatus("✅ Erfolgreich gesendet!");
+      e.target.reset();
+    } else {
+      setStatus("❌ Fehler beim Senden");
+    }
+  }
+
   return (
     <main className="bg-black text-white min-h-screen">
       {/* HERO SECTION */}
       <section className="flex flex-col items-center justify-center text-center h-screen px-6">
         <h1 className="text-4xl md:text-6xl font-bold mb-6">Willkommen bei</h1>
-
         <Image
           src={Logo}
           alt="COKAJ Logo"
@@ -15,12 +44,10 @@ export default function Home() {
           height={320}
           className="mb-8"
         />
-
         <p className="text-lg md:text-xl max-w-2xl mb-8">
           Professionelle Reinigung & Hausservices in Deutschland.  
           Qualität, Zuverlässigkeit und Perfektion – alles aus einer Hand.
         </p>
-
         <a
           href="#services"
           className="bg-red-700 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition"
@@ -83,21 +110,27 @@ export default function Home() {
             Füllen Sie das Formular aus oder kontaktieren Sie uns direkt.
           </p>
 
-          <form className="grid gap-4 max-w-xl mx-auto">
+          <form onSubmit={handleSubmit} className="grid gap-4 max-w-xl mx-auto">
             <input
               type="text"
+              name="name"
               placeholder="Ihr Name"
               className="p-3 rounded-lg bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-red-700"
+              required
             />
             <input
               type="email"
+              name="email"
               placeholder="Ihre E-Mail"
               className="p-3 rounded-lg bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-red-700"
+              required
             />
             <textarea
+              name="message"
               placeholder="Ihre Nachricht"
               rows="5"
               className="p-3 rounded-lg bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-red-700"
+              required
             ></textarea>
             <button
               type="submit"
@@ -106,6 +139,8 @@ export default function Home() {
               Nachricht senden
             </button>
           </form>
+
+          <p className="text-sm text-gray-400 mt-4">{status}</p>
         </div>
       </section>
 
