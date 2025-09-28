@@ -31,8 +31,8 @@ export const metadata = {
     siteName: "COKAJ",
     images: [
       {
-        url: "/logo.png",
-        width: 800,
+        url: "/logo.png", // place your logo.png in /public
+        width: 600,
         height: 600,
         alt: "COKAJ Logo – Reinigung & Hausservices",
       },
@@ -40,16 +40,14 @@ export const metadata = {
     type: "website",
   },
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.png", // place in /public
   },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="de">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>
