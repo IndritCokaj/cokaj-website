@@ -12,8 +12,33 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Willkommen bei COKAJ",
-  description: "Professionelle Reinigung und Restauration",
+  title: "COKAJ – Reinigung & Hausservices in Deutschland",
+  description:
+    "Professionelle Reinigungsdienste, Hausmeisterservice und Renovierungen in Deutschland. Qualität, Zuverlässigkeit und Perfektion – alles aus einer Hand.",
+  keywords: [
+    "Reinigung",
+    "Hausservice",
+    "Hausmeister",
+    "Renovierung",
+    "Deutschland",
+    "COKAJ",
+  ],
+  openGraph: {
+    title: "COKAJ – Reinigung & Hausservices in Deutschland",
+    description:
+      "Professionelle Reinigung & Hausservices. Qualität, Zuverlässigkeit und Perfektion – alles aus einer Hand.",
+    url: "https://cokaj.de",
+    siteName: "COKAJ",
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 600,
+        alt: "COKAJ Logo – Reinigung & Hausservices",
+      },
+    ],
+    type: "website",
+  },
   icons: {
     icon: "/favicon.png",
   },
@@ -21,7 +46,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="de">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
